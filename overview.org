@@ -1,0 +1,31 @@
+
+
+
+The Game TicTacToe;
+
+ Rules:
+ TicTacToe is a game whereby two players, are select a mark for each of
+ their turns.
+
+ Each turn a player may make his mark on the board, only on an empty space.
+
+ After each turn the game is checked for whether the player has three in a 
+ row of their pieces.
+
+ If no more cells are vacant, it is a draw.
+
+
+
+* Concepts
+
+  
+ - 
+ - Board
+ - Player
+ - Turn
+ - Position
+
+
+** Game
+
+ 
