@@ -69,12 +69,15 @@ fn board_check_turn_result(board: [i32; 9], position: Position, turn: i32) -> i3
 /**
   Checks if the game board is filled
 */
-/*
+
 fn board_is_filled(board: [i32; 9]) -> bool {
   for element in board.iter() {
-    if element 
+    if element != 0 {
+      return false;
+    }
   }
-}*/
+  return true;
+}
 
 
 /**
@@ -156,27 +159,6 @@ fn generate_random_position() -> Position {
   return Position { x: (random_number / 3f64).floor() as i32, y: (random_number % 3f64) as i32};
 }
 
-/* fn generate_random_range(start: i32, end: i32) -> i32 {
-  use rand::prelude::*;
-  let mut rng = thread_rng();
-  return rng.gen_range(start, end);
-}*/
-
-
-
-/*fn generate_random_range(start: i32, end: i32) -> i32 {
-  use rand::prelude::*;
-  let mut rng = thread_rng();
-  return rng.gen_range(start, end);
-}*/
-
-
-/*
-  Display Random Positions:
-  for i in 0..10 {
-    println!("{}", generate_random_position());
-  }
-*/
 
 
 /*
