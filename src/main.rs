@@ -72,12 +72,41 @@ fn board_check_turn_result(board: [i32; 9], position: Position, turn: i32) -> i3
 
 fn board_is_filled(board: [i32; 9]) -> bool {
   for element in board.iter() {
-    if element != 0 {
+    if *element != 0 {
       return false;
     }
   }
   return true;
 }
+
+/**
+  Check if player has won
+*/
+fn check_player_has_won(board: [i32; 9], position: Position, turn: i32) {
+    let player_id = board_cell_value(board, position);
+  
+}
+
+/**
+   Checks if the Position is a *side*
+*/
+fn is_side(position: Position) -> bool {
+  if position.x == 1 && position.y == 1 {
+    return true;
+  }
+  return false;
+}
+
+fn is_corner(position: Position) -> bool {
+  if position.x == 0 && position.y == 0
+     || (position.x == 2 && position.y == 0)
+     || (position.x == 2 && position.y == 0)
+     || (position.x == 2 && position.y == 2) {
+    return true;
+  } 
+  return false;
+}
+
 
 
 /**
