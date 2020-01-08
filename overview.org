@@ -28,4 +28,25 @@ The Game TicTacToe;
 
 ** Game
 
+
+* Objectives
  
+- [0%] Build TicTacToe
+  - [ ] Create Player
+  - [ ] Create GameBoard
+  - [ ] Print Textual Board
+    - 
+
+
+
+* Change Log
+
+
+
+
+Added ability to display a logical game board in text.
+
+
+Initial
+
+
