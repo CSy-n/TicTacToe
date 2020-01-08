@@ -239,7 +239,7 @@ pub fn board_display(board: [i32; 9]) {
         }      
 
         if (index + 1 ) % 3 == 0 {
-            println!("");
+            println!("|");
         }
       
     }
