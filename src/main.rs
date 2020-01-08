@@ -14,8 +14,6 @@ const BOARD_SIZE: i32 = 9;
 
 
 
-
-
 fn main() {
     test_board_game_logic();
 
