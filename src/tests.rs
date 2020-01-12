@@ -5,16 +5,16 @@ use crate::utils::*;
  Check if board Wins as expected
 */
 pub fn test_board_game_logic() {
-    let mut board = [0; 9];
+    let board = [0; 9];
 
     println!("Running Tests");
     
-    board = [1,0,0, 0,0,0, 0,0,0];
+    let board = [1,0,0, 0,0,0, 0,0,0];
 
     //println!("{}", board.len());
 
     // Expected PASS     
-    board = [0,0,0, 0,0,0, 0,0,0];
+    let board = [1,1,1, 0,0,0, 0,0,0];
     let htop = test_htop(board);
     
     println!("----------------------");        
@@ -23,13 +23,79 @@ pub fn test_board_game_logic() {
     board_display(board);
     
     println!("----------------------");
+
+    // Expected PASS     
+    let board = [0,0,0, 1,1,1, 0,0,0];
+    let hmid = test_hmid(board);
+    
+    println!("----------------------");        
+    println!("test_htop => {}", hmid);
+
+    board_display(board);
+    
+    println!("----------------------");
+
+
+    // Expected FAIL     
+    let board = [0,0,0, 0,0,0, 0,1,1];
+    let hbot = test_hbot(board);
+    
+    println!("----------------------");        
+    println!("test_htop => {}", hbot);
+
+    board_display(board);
+    
+    println!("----------------------");
+
+    
+
+
     
 
 }
 
+fn display_results(board: [9; i32], result) {
+
+}
+
+//Diagonals
 pub fn test_htop(board: [i32; 9]) -> bool {
-    //(board[0] == board[1]) && (board[0] == board[2])
-    (board[0] == board[1]) && (board[0] == board[2])
+    (board[0] != 0) && (board[0] == board[1]) && (board[0] == board[2])
+}
+
+pub fn test_hmid(board: [i32; 9]) -> bool {
+    (board[3] != 0) && (board[3] == board[4]) && (board[3] == board[5])
+}
+
+
+pub fn test_hbot(board: [i32; 9]) -> bool {
+    (board[6] != 0) && (board[6] == board[7]) && (board[6] == board[8])
+}
+
+
+//Verticals
+
+pub fn test_vtop(board: [i32; 9]) -> bool {
+    (board[0] != 0) && (board[0] == board[3]) && (board[0] == board[6])
+}
+
+pub fn test_vmid(board: [i32; 9]) -> bool {
+    (board[1] != 0) && (board[1] == board[4]) && (board[1] == board[7])
+}
+
+pub fn test_vbot(board: [i32; 9]) -> bool {
+    (board[2] != 0) && (board[2] == board[5]) && (board[2] == board[8])
+}
+
+
+// Diagonals
+
+pub fn test_dleft(board: [i32; 9]) -> bool {
+    (board[0] != 0) && (board[0] == board[4]) && (board[0] == board[8])
+}
+
+pub fn test_dright(board: [i32; 9]) -> bool {
+    (board[2] != 0) && (board[2] == board[4]) && (board[2] == board[6])
 }
 
 
