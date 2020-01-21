@@ -7,55 +7,180 @@ use crate::utils::*;
 pub fn test_board_game_logic() {
     let board = [0; 9];
 
-    println!("Running Tests");
+    println!("Running Tests...");
     
     let board = [1,0,0, 0,0,0, 0,0,0];
 
     //println!("{}", board.len());
 
-    // Expected PASS     
-    let board = [1,1,1, 0,0,0, 0,0,0];
-    let htop = test_htop(board);
+
+  //  horizontal_tests();
+//    vertical_tests();
+    diagonal_tests();
+
+
+
+
+     
     
-    println!("----------------------");        
-    println!("test_htop => {}", htop);
-
-    board_display(board);
-    
-    println!("----------------------");
-
-    // Expected PASS     
-    let board = [0,0,0, 1,1,1, 0,0,0];
-    let hmid = test_hmid(board);
-    
-    println!("----------------------");        
-    println!("test_htop => {}", hmid);
-
-    board_display(board);
-    
-    println!("----------------------");
-
-
-    // Expected FAIL     
-    let board = [0,0,0, 0,0,0, 0,1,1];
-    let hbot = test_hbot(board);
-    
-    println!("----------------------");        
-    println!("test_htop => {}", hbot);
-
-    board_display(board);
-    
-    println!("----------------------");
-
-    
-
-
     
 
 }
 
-fn display_results(board: [9; i32], result) {
+fn horizontal_tests() {
+    println!("______________________");        
+    println!("Horizontal Tests");
+    println!("______________________");   
 
+
+     
+    
+    // Expected PASS     
+    let board = [1,1,1, 0,0,0, 0,0,0];
+    let htop = test_htop(board);
+
+    display_results(board, "test_htop", htop);
+
+
+    // Expected PASS     
+    let board = [0,0,0, 1,1,1, 0,0,0];
+    let hmid = test_hmid(board);
+
+    display_results(board, "test_hmid", hmid);
+
+    // Expected PASS     
+    let board = [0,0,0, 0,0,0, 1,1,1];
+    let hbot = test_hbot(board);
+
+    display_results(board, "test_hbot", hbot);
+
+   //-----------------------------------
+
+    // Expected FAIL     
+    let board = [1,0,1, 0,0,0, 0,0,0];
+    let htop = test_htop(board);
+
+    display_results(board, "test_htop", htop);
+
+
+    // Expected FAIL     
+    let board = [0,0,0, 1,0,1, 0,0,0];
+    let hmid = test_hmid(board);
+
+    display_results(board, "test_hmid", hmid);
+
+    // Expected FAIL
+    let board = [0,0,0, 0,0,0, 1,0,1];
+    let hbot = test_hbot(board);
+
+    display_results(board, "test_hbot", hbot);
+
+}
+
+fn vertical_tests() {
+
+
+
+
+
+    println!("______________________");        
+    println!("VERTICAL Tests");
+    println!("______________________");   
+
+
+     
+    
+    // Expected PASS    
+    let board = [1,0,0, 1,0,0, 1,0,0];
+    let htop = test_vleft(board);
+
+    display_results(board, "test_vleft", htop);
+
+
+    // Expected PASS     
+    let board = [0,1,0, 0,1,0, 0,1,0];
+    let hmid = test_vmid(board);
+
+    display_results(board, "test_vmid", hmid);
+
+    // Expected PASS     
+    let board = [0,0,1, 0,0,1, 0,0,1];
+    let hbot = test_vright(board);
+
+    display_results(board, "test_vright", hbot);
+
+
+
+   //-----------------------------------
+    // Expected FAIL    
+    let board = [1,0,0, 0,0,0, 1,0,0];
+    let htop = test_htop(board);
+    display_results(board, "test_vleft", htop);
+
+
+    // Expected FAIL     
+    let board = [0,1,0, 0,0,0, 0,1,0];
+    let hmid = test_hmid(board);
+
+    display_results(board, "test_vmid", hmid);
+
+
+    // Expected FAIL     
+    let board = [0,0,1, 0,0,0, 0,0,1];
+    let hbot = test_hbot(board);
+
+    display_results(board, "test_vright", hbot);
+}
+
+fn diagonal_tests() {
+    println!("______________________");        
+    println!("DIAGONAL Tests");
+    println!("______________________");   
+
+
+     
+    
+    // Expected PASS    
+    let board = [1,0,0, 0,1,0, 0,0,1];
+    let htop = test_dleft(board);
+
+    display_results(board, "test_dleft", htop);
+
+    // Expected PASS    
+    let board = [0,0,1, 0,1,0, 1,0,0];
+    let htop = test_dright(board);
+
+    display_results(board, "test_dright", htop);
+
+
+   //=============================================
+
+
+    // Expected FAIL    
+    let board = [1,0,0, 0,0,0, 0,0,1];
+    let htop = test_dleft(board);
+
+    display_results(board, "test_dleft", htop);
+
+    // Expected FAIL    
+    let board = [0,0,1, 0,0,0, 1,0,0];
+    let htop = test_dright(board);
+
+    display_results(board, "test_dright", htop);
+}
+
+
+
+
+
+
+fn display_results(board: [i32; 9], test: &str, result: bool) {
+    println!("----------------------");        
+    println!("{} => {}", test, result);
+
+    board_display(board);
+    
+    println!("----------------------");
 }
 
 //Diagonals
@@ -75,7 +200,7 @@ pub fn test_hbot(board: [i32; 9]) -> bool {
 
 //Verticals
 
-pub fn test_vtop(board: [i32; 9]) -> bool {
+pub fn test_vleft(board: [i32; 9]) -> bool {
     (board[0] != 0) && (board[0] == board[3]) && (board[0] == board[6])
 }
 
@@ -83,7 +208,7 @@ pub fn test_vmid(board: [i32; 9]) -> bool {
     (board[1] != 0) && (board[1] == board[4]) && (board[1] == board[7])
 }
 
-pub fn test_vbot(board: [i32; 9]) -> bool {
+pub fn test_vright(board: [i32; 9]) -> bool {
     (board[2] != 0) && (board[2] == board[5]) && (board[2] == board[8])
 }
 
