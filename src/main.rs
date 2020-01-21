@@ -15,7 +15,34 @@ const BOARD_SIZE: i32 = 9;
 
 
 fn main() {
-    test_board_game_logic();
+    // Test Game Logic:
+    //test_board_game_logic();
+
+
+    // Create game board
+    let mut board = [0; 9];
+    let turn = 0;
+    let selection = Position {x: 0, y: 0};
+
+     // Game Board has no marks on it...
+    //Display game board
+    board_display(board);
+
+
+   // Place piece of game board [Correct piece]
+    game_place_piece(&mut board, 2, selection);
+
+    // Check if piece was a winning move.
+   // Update state of `turn'
+
+    
+
+    //Display game board...
+    println!("-----------------------------");
+    board_display(board);
+
+
+
 
 }
 

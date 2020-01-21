@@ -20,6 +20,10 @@ impl std::fmt::Display for Position {
 /*
 
 Functions: 
+
+    game_place_piece
+
+    ==========================
     generate_random_range
     generate_random_position
     --------------------------
@@ -34,11 +38,23 @@ Functions:
 
     board_check_player_has_won
     ----------------------------
-   
+    board_display
 
 
 
 */
+
+
+pub fn game_place_piece(board: &mut [i32; 9], piece: i32, pos: Position) {
+    //let pos = (y * 3 + x) as usize;    
+    //*board[pos] = piece;
+    board[(pos.y * 3 + pos.x) as usize] = piece;
+    //board = &mut[0; 9];
+    //board_display(*board);
+
+}
+
+
 
 /**
   Calculate current Players turn
