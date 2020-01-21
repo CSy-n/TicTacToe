@@ -29,12 +29,12 @@ fn main() {
     board_display(board);
 
 
-   // Place piece of game board [Correct piece]
+    // Place piece of game board [Correct piece]
     game_place_piece(&mut board, 2, selection);
 
     // Check if piece was a winning move.
-   // Update state of `turn'
-
+    // Update state of `turn'
+    game_check_turn_result(board, selection, turn);
     
 
     //Display game board...

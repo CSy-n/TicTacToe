@@ -100,51 +100,61 @@ pub fn generate_random_position(x: i32, y: i32) -> Position {
 /**
   Check if player has won
 */
-pub fn board_check_player_has_won(board: [i32; 9], position: Position, turn: i32) -> bool{
-    let player_id = board_cell_value(board, position);
-    println!("player_id: {}", player_id);
+pub fn board_check_player_has_won(board: [i32; 9], position: Position, player: i32) -> bool{
+    let player_id = board_current_player_turn(player);
+    //println!("player_id: {}", player_id);
 
     // HORIZONTALS
     if player_id == board[0] && player_id == board[1] && player_id == board[2] {
-      println!("player_has_won  #h$1");
+      return true;
+      //println!("player_has_won  #h$1");
     } 
 
     if player_id == board[3] && player_id == board[4] && player_id == board[5] {
-    println!("b[0:{}, 1:{}, 2:{}]", board[3], board[4], board[5]);
-
-      println!("player_has_won #h$2");
+      return true;
+      //println!("player_has_won #h$2");
     }
 
     if player_id == board[6] && player_id == board[7] && player_id == board[8] {
-      println!("player_has_won  #h$3");
+      return true;
+      //println!("player_has_won  #h$3");
     }
 
 
     // VERTICALS
     if player_id == board[0] && player_id == board[3] && player_id== board[6] {
-      println!("player_has_won  #V$1");
+      return true;
+      //println!("player_has_won  #V$1");
     }
 
     if player_id == board[1] && player_id == board[4] &&  player_id == board[7] {
-      println!("player_has_won  #V$2");
+      return true;
+      //println!("player_has_won  #V$2");
     }
 
     if player_id == board[2] && player_id == board[5] && player_id == board[8] {
-      println!("player_has_won  #V$3");
+      return true;
+      //println!("player_has_won  #V$3");
     }
 
     // DIAGONALS
     if player_id == board[0] && player_id == board[4] && player_id == board[8] {
-      println!("player_has_won #d$1");
+      return true;
+      //println!("player_has_won #d$1");
     }
 
     if player_id == board[2] && player_id == board[4] && player_id == board[6] {
-      println!("player_has_won #D$2");
+      //println!("player_has_won #D$2");
+      return true;
     }
 
 
-  true
+  false
 }
+
+
+
+
 
 
 
@@ -157,13 +167,24 @@ pub fn board_check_player_has_won(board: [i32; 9], position: Position, turn: i32
 
    Checks if the current board configuration is 
 */
-pub fn board_check_turn_result(board: [i32; 9], position: Position, turn: i32) -> i32 {
+pub fn game_check_turn_result(board: [i32; 9], position: Position, turn: i32) -> i32 {
   
-  //If the game is A Win, return 3
-  //if the game is a draw return 2
-  //if the game is a loss, return 1
-  //If the game is still in progress return 0
-    
+
+    //If the game is A Win, return 1
+    if(board_check_player_has_won(board, position, turn)) {
+        return 1;
+    }
+    //if the game is a loss, return 2
+    if(board_check_player_has_won(board, position, turn + 1)) {
+        return 2;
+    }
+
+    //if the game is a draw return 3
+    if(board_is_filled(board)) {
+        return 3; //DRAW
+    }
+    //If the game is still in progress return 0
+
 
   return 0;
   
