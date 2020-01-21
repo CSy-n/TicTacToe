@@ -178,12 +178,12 @@ fn display_results(board: [i32; 9], test: &str, result: bool) {
     println!("----------------------");        
     println!("{} => {}", test, result);
 
-    board_display(board);
+    //board_display(board);
     
     println!("----------------------");
 }
 
-//Diagonals
+//Horizontals
 pub fn test_htop(board: [i32; 9]) -> bool {
     (board[0] != 0) && (board[0] == board[1]) && (board[0] == board[2])
 }
