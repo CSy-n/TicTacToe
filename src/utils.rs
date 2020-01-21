@@ -15,6 +15,122 @@ impl std::fmt::Display for Position {
     }
 }
 
+pub const BOARD_SIZE: usize = 9;
+
+
+pub struct Board {
+    pub board: [i32; BOARD_SIZE],
+    pub turn: i32 
+}
+
+impl Board {
+    pub fn new() -> Board {
+        Board {
+            board: [0; BOARD_SIZE],
+            turn: 0
+        }    
+    }
+
+    pub fn init(board: [i32; 9]) -> Board {
+        Board {
+            board: board,
+            turn: 0
+        }    
+    }
+
+    /**
+        Displays a textual representation of the Board.
+    */
+    pub fn display(&self) {
+
+        for (index, element) in self.board.iter().enumerate() {
+
+            if *element == 0 {
+                print!("| {} ", " ");
+            } 
+            else if *element == 1 {
+                print!("| {} ", "X");
+
+            } else {
+                print!("| {} ", "O");
+            }      
+
+            if (index + 1 ) % 3 == 0 {
+                println!("|");
+            }
+          
+        }
+    }
+
+
+
+    /**
+        Places a piece, and then returns the results of the turn.
+        See check_turn_result for returns.
+    */
+    pub fn take_turn(&mut self, pos: Position) -> i32 {
+        //let pos = (y * 3 + x) as usize;    
+        //*board[pos] = piece;
+        self.place_piece(board_current_player_turn(self.turn), pos);
+        //board = &mut[0; 9];
+        //board_display(*board);
+        self.increment_counter();
+        self.check_turn_result()
+    }
+
+    /**
+        Simply place a piece on the board
+    */
+    pub fn place_piece(&mut self, piece: i32, pos: Position) {
+        //let pos = (y * 3 + x) as usize;    
+        //*board[pos] = piece;
+        self.board[(pos.y * 3 + pos.x) as usize] = piece;
+        //board = &mut[0; 9];
+        //board_display(*board);
+
+    }
+
+
+    /**
+      Checks the State of the Game
+      - Complete
+      - In Progress
+
+       Checks if the current board configuration is 
+    */
+    pub fn check_turn_result(&self) -> i32 {
+      
+
+        //If the game is A Win, return 1
+        if(board_check_player_has_won(self.board, self.turn)) {
+            return 1;
+        }
+        //if the game is a loss, return 2
+        if(board_check_player_has_won(self.board, self.turn + 1)) {
+            return 2;
+        }
+
+        //if the game is a draw return 3
+        if(self.turn > 0 && board_is_filled(self.board)) {
+            return 3; //DRAW
+        }
+        //If the game is still in progress return 0
+
+
+      return 0;
+      
+    }
+
+    pub fn increment_counter(&mut self) {
+        self.turn += 1
+    }
+
+
+    pub fn from(board: [i32; 9]) {
+        
+
+    }
+}
 
 
 /*
@@ -45,14 +161,6 @@ Functions:
 */
 
 
-pub fn game_place_piece(board: &mut [i32; 9], piece: i32, pos: Position) {
-    //let pos = (y * 3 + x) as usize;    
-    //*board[pos] = piece;
-    board[(pos.y * 3 + pos.x) as usize] = piece;
-    //board = &mut[0; 9];
-    //board_display(*board);
-
-}
 
 
 
@@ -61,7 +169,7 @@ pub fn game_place_piece(board: &mut [i32; 9], piece: i32, pos: Position) {
   #Returns integer representation of player-turn
 */
 pub fn board_current_player_turn(turn: i32) -> i32 {
-  turn % 2
+  turn % 2 + 1
 }
 
 
@@ -100,8 +208,8 @@ pub fn generate_random_position(x: i32, y: i32) -> Position {
 /**
   Check if player has won
 */
-pub fn board_check_player_has_won(board: [i32; 9], position: Position, player: i32) -> bool{
-    let player_id = board_current_player_turn(player);
+pub fn board_check_player_has_won(board: [i32; 9], turn: i32) -> bool{
+    let player_id = board_current_player_turn(turn);
     //println!("player_id: {}", player_id);
 
     // HORIZONTALS
@@ -159,36 +267,6 @@ pub fn board_check_player_has_won(board: [i32; 9], position: Position, player: i
 
 
 
-
-/**
-  Checks the State of the Game
-  - Complete
-  - In Progress
-
-   Checks if the current board configuration is 
-*/
-pub fn game_check_turn_result(board: [i32; 9], position: Position, turn: i32) -> i32 {
-  
-
-    //If the game is A Win, return 1
-    if(board_check_player_has_won(board, position, turn)) {
-        return 1;
-    }
-    //if the game is a loss, return 2
-    if(board_check_player_has_won(board, position, turn + 1)) {
-        return 2;
-    }
-
-    //if the game is a draw return 3
-    if(board_is_filled(board)) {
-        return 3; //DRAW
-    }
-    //If the game is still in progress return 0
-
-
-  return 0;
-  
-}
 
 /**
   Checks if the game board is filled
@@ -257,30 +335,6 @@ pub fn board_position_within_bounds(position: Position) -> bool {
     return false;
 }
 
-
-/**
-    Displays a textual representation of the Board.
-*/
-pub fn board_display(board: [i32; 9]) {
-
-    for (index, element) in board.iter().enumerate() {
-
-        if *element == 0 {
-            print!("| {} ", " ");
-        } 
-        else if *element == 1 {
-            print!("| {} ", "X");
-
-        } else {
-            print!("| {} ", "O");
-        }      
-
-        if (index + 1 ) % 3 == 0 {
-            println!("|");
-        }
-      
-    }
-}
 
 
 
